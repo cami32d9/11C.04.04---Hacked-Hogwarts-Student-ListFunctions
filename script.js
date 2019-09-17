@@ -15,7 +15,14 @@ async function getJson() {
 
 function start() {
     createStudentArray(originalStudentArray);
+    sortFunction("lastName");
     console.log(studentArray);
+
+    document.querySelector(".sort").addEventListener("change", function () {
+        let sortBy = this.value;
+        console.log(this.value);
+        console.log(sortFunction(sortBy));
+    });
 
     document.querySelector(".filter").addEventListener("change", function () {
         let house = this.value;
@@ -56,7 +63,7 @@ function capitalize(str) {
 }
 
 
-// ----- FILTER FUNCTIONS -----
+// ----- FILTER AND SORT FUNCTIONS -----
 
 function filterFunction(field, value) {
     if (value === "All") {
@@ -66,4 +73,11 @@ function filterFunction(field, value) {
     return studentArray.filter(function (student) {
         return student[field] === value;
     });
+}
+
+function sortFunction(sortBy) {
+    studentArray.sort((a,b) => {
+        return a[sortBy].localeCompare(b[sortBy]);
+    });
+    return studentArray;
 }
