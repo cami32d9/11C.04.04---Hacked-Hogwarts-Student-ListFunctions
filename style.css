@@ -27,6 +27,12 @@ main {
     opacity: 1;
 }
 
+.crest {
+    height: 15px;
+    margin-left: -3px;
+    margin-bottom: -3px;
+}
+
 
 /* ----- STUDENT LIST ----- */
 
@@ -43,6 +49,12 @@ main {
     grid-row-gap: 10px;
 }
 
+
+.list_options {
+    text-align: right;
+    padding: 10px;
+}
+
 .student_thumbnail {
     border: 3px solid darkred;
     border-radius: 30px;
@@ -51,9 +63,3 @@ main {
 
 
 /* ----- MODAL WINDOW ----- */
-
-.list_options {
-    text-align: right;
-    padding: 10px;
-    display: none;
-}
