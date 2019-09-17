@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    >
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
+    <title>11C.04.04 - Hacked Hogwarts Student ListFunctions</title>
+</head>
+<body>
+    <main>
+
+        <h1>List of Hogwarts Students year 1991</h1>
+
+        <div class="student_list_container">
+
+            <div class="list_options">
+
+                <label id="filter">
+                    Show students from house:
+                    <select name="filter" class="filter">
+                        <option value="">All</option>
+                        <option value="gryffindor">Gryffindor</option>
+                        <option value="ravenclaw">Ravenclaw</option>
+                        <option value="hufflepuff">Hufflepuff</option>
+                        <option value="slytherin">Slytherin</option>
+                    </select>
+
+                    <button>Show expelled students</button>
+                </label>
+            </div>
+
+            <div class="student_list">
+                <!-- HEADINGS -->
+
+                <div></div>
+                <div>
+                    Last name
+                    <img src="elements/sort_icon.png" alt="Sort by Last name" class="sort_icon sorting_active">
+                </div>
+                <div>
+                    First name(s)
+                    <img src="elements/sort_icon.png" alt="Sort by Last name" class="sort_icon">
+                </div>
+                <div>
+                    Blood status
+                </div>
+                <div>
+                    Prefect
+                </div>
+                <div>
+                    Member of Inquisitorial squad
+                </div>
+                <div>
+                    House
+                    <img src="elements/sort_icon.png" alt="Sort by Last name" class="sort_icon">
+                </div>
+                <div>
+                    <img
+                        src="elements/students/potter_h.png"
+                        alt="Student Image of Harry James Potter"
+                        class="student_thumbnail"
+                    >
+                </div>
+                <div>
+                    Potter
+                </div>
+                <div>
+                    Harry James
+                </div>
+                <div>
+                    Full blood
+                </div>
+                <div></div>
+                <div></div>
+                <div>
+                    Gryffindor
+                </div>
+                <div>
+                    <img
+                        src="elements/students/potter_h.png"
+                        alt="Student Image of Harry James Potter"
+                        class="student_thumbnail"
+                    >
+                </div>
+                <div>
+                    Potter
+                </div>
+                <div>
+                    Harry James
+                </div>
+                <div>
+                    Full blood
+                </div>
+                <div>x</div>
+                <div>x</div>
+                <div>
+                    Gryffindor
+                </div>
+            </div>
+
+        </div>
+
+        <div class="list_options">
+            <b>Options</b><br>
+            Expell <br>
+            Make prefect <br>
+            Make member of Inquisitorial Squad
+        </div>
+
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>

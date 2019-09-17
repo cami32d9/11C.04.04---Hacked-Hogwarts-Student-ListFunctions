@@ -1,0 +1,59 @@
+/* ----- GENERAL DESIGN -----*/
+
+html {
+    font-family: sans-serif;
+}
+
+body {
+    margin: 0;
+}
+
+main {
+    width: fit-content;
+    margin: 0 auto;
+}
+
+
+/* ----- ICONS ----- */
+
+.sort_icon {
+    height: 15px;
+    margin-left: -3px;
+    margin-bottom: -3px;
+    opacity: 0.3;
+}
+
+.sort_icon.sorting_active {
+    opacity: 1;
+}
+
+
+/* ----- STUDENT LIST ----- */
+
+.student_list_container {
+    width: fit-content;
+    background-color: rgba(139, 0, 0, 0.1);
+}
+
+.student_list {
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(7, auto);
+    grid-column-gap: 50px;
+    grid-row-gap: 10px;
+}
+
+.student_thumbnail {
+    border: 3px solid darkred;
+    border-radius: 30px;
+    width: 75px;
+}
+
+
+/* ----- MODAL WINDOW ----- */
+
+.list_options {
+    text-align: right;
+    padding: 10px;
+    display: none;
+}
