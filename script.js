@@ -13,12 +13,12 @@ const studentTemplate = document.querySelector(".student_template");
 
 async function getJson() {
     // Getting student array
-    let pagesUrl = "http://petlatkea.dk/2019/hogwartsdata/students.json";
+    let pagesUrl = "https://petlatkea.dk/2019/hogwartsdata/students.json";
     let jsonData = await fetch(pagesUrl);
     originalStudentArray = await jsonData.json();
 
     // Getting list of families and blood status
-    let pagesUrlFam = "http://petlatkea.dk/2019/hogwartsdata/families.json";
+    let pagesUrlFam = "https://petlatkea.dk/2019/hogwartsdata/families.json";
     let jsonDataFam = await fetch(pagesUrlFam);
     familyBlood = await jsonDataFam.json();
 
