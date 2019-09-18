@@ -29,7 +29,7 @@ function start() {
     createStudentArray(originalStudentArray);
     addMeToList();
     createFinishedList();
-    showStudentList();
+    showStudentList(studentArray);
     addEventListeners();
     // showStudentList(studentArray);
 }
@@ -133,17 +133,31 @@ function createFinishedList() {
     const currentStudentList = filterFunction(sortFunction(studentArray, sortBy), 'house', house);
     console.log(currentStudentList);
     console.log(`Showing ${currentStudentList.length} students`);
+
+    destStudentList.innerHTML = "";
+    showStudentList(currentStudentList);
+
 }
 
 
 // ----- SHOW IN DOM -----
 
-function showStudentList() {
-    studentArray.forEach(student => {
-        destStudentList.appendChild(studentTemplate.content.cloneNode(true));
-        document.querySelector(".list_first_name").innerHTML = student.firstName;
+function showStudentList(list) {
+    list.forEach(student => {
+        const template = studentTemplate.content.cloneNode(true);
+
+        template.querySelector(".list_first_names").innerHTML = student.firstName + ' ' + student.middleName;
+        template.querySelector(".list_last_name").innerHTML = student.lastName;
+        template.querySelector(".list_blood_status").innerHTML = student.firstName;
+        template.querySelector(".list_prefect").innerHTML = student.isPrefect ? 'Yes' : 'No';
+        template.querySelector(".list_inq_squad").innerHTML = student.isInqSquadMember ? 'Yes' : 'No';
+        template.querySelector(".list_house").innerHTML = student.house;
+
+        destStudentList.appendChild(template);
     })
 }
+
+
 
 
 // ----- HACKING -----
