@@ -29,7 +29,6 @@ function start() {
     createStudentArray(originalStudentArray);
     addMeToList();
     createFinishedList();
-    showStudentList(studentArray);
     addEventListeners();
     // showStudentList(studentArray);
 }
@@ -91,14 +90,10 @@ function addBloodStatus(thisStudent) {
     if (familyBlood.half.includes(thisStudent.lastName)) {
         thisStudent.bloodStatus = "Halfblood";
         // console.log("We're half");
-    }
-
-    else if (familyBlood.pure.includes(thisStudent.lastName)) {
+    } else if (familyBlood.pure.includes(thisStudent.lastName)) {
         thisStudent.bloodStatus = "Pureblood";
         // console.log("We're pure");
-    }
-
-    else {
+    } else {
         thisStudent.bloodStatus = "Muggleblood";
     }
 
@@ -120,7 +115,7 @@ function filterFunction(list, field, value) {
 }
 
 function sortFunction(list, sortBy) {
-    list.sort((a,b) => {
+    list.sort((a, b) => {
         return a[sortBy].localeCompare(b[sortBy]);
     });
     return list;
@@ -146,18 +141,22 @@ function showStudentList(list) {
     list.forEach(student => {
         const template = studentTemplate.content.cloneNode(true);
 
+        const studentPortrait = `${student.lastName}_${student.firstName.substring(0, 1)}`.toLowerCase();
+
+        template.querySelector(".student_thumbnail").src = `elements/students/${studentPortrait}.png`;
         template.querySelector(".list_first_names").innerHTML = student.firstName + ' ' + student.middleName;
         template.querySelector(".list_last_name").innerHTML = student.lastName;
         template.querySelector(".list_blood_status").innerHTML = student.firstName;
         template.querySelector(".list_prefect").innerHTML = student.isPrefect ? 'Yes' : 'No';
         template.querySelector(".list_inq_squad").innerHTML = student.isInqSquadMember ? 'Yes' : 'No';
-        template.querySelector(".list_house").innerHTML = student.house;
+        template.querySelector(".list_house").innerHTML = `
+${student.house} 
+<img src="elements/${student.house}_crest.png" class="crest" alt="${student.house} House Crest">
+`;
 
         destStudentList.appendChild(template);
     })
 }
-
-
 
 
 // ----- HACKING -----
@@ -183,9 +182,7 @@ function createObjectOfMe() {
 function randomizeBloodStatus(thisStudent) {
     if (thisStudent.bloodStatus === "Halfblood" || thisStudent.bloodStatus === "Muggleblood") {
         thisStudent.bloodStatus = "Pureblood";
-    }
-
-    else {
+    } else {
         let bloodArray = ["Pureblood", "Halfblood", "Muggleblood"];
         let randomBlood = Math.floor(Math.random() * Math.floor(3));
 
