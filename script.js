@@ -10,6 +10,8 @@ let house = "All";
 
 const destStudentList = document.querySelector(".student_list");
 const studentTemplate = document.querySelector(".student_template");
+const popup = document.querySelector(".popup_container");
+const popupDim = document.querySelector(".popup_dim");
 
 async function getJson() {
     // Getting student array
@@ -69,13 +71,13 @@ function createStudentObject(student) {
 
     return {
         firstName: names.shift(),
-        bloodStatus: null,
         lastName: names.pop() || "Unknown",
         middleName: names.join(" "),
         gender: student.gender,
         house: capitalize(student.house.trim()),
         isPrefect: false,
-        isInqSquadMember: false
+        isInqSquadMember: false,
+        bloodStatus: null,
     };
 }
 
@@ -126,12 +128,12 @@ function sortFunction(list, sortBy) {
 
 function createFinishedList() {
     const currentStudentList = filterFunction(sortFunction(studentArray, sortBy), 'house', house);
+
     console.log(currentStudentList);
     console.log(`Showing ${currentStudentList.length} students`);
 
     destStudentList.innerHTML = "";
     showStudentList(currentStudentList);
-
 }
 
 
@@ -141,12 +143,30 @@ function showStudentList(list) {
     list.forEach(student => {
         const template = studentTemplate.content.cloneNode(true);
 
-        const studentPortrait = `${student.lastName}_${student.firstName.substring(0, 1)}`.toLowerCase();
+        let studentPortrait;
+        let lastName = student.lastName;
+
+        // If there is a - in the last name, the last part of the name will be used as lastName
+        let nameArray = lastName.split("-");
+        lastName = nameArray[nameArray.length-1];
+
+        // If-statements for the Patil twins, as the images fall out of the norm
+        if (student.firstName === "Parvati") {
+            studentPortrait = "patil_parvati";
+        }
+
+        else if (student.firstName === "Padma") {
+            studentPortrait = "patil_padme";
+        }
+
+        else {
+        studentPortrait = `${lastName}_${student.firstName.substring(0, 1)}`.toLowerCase();
+        }
 
         template.querySelector(".student_thumbnail").src = `elements/students/${studentPortrait}.png`;
         template.querySelector(".list_first_names").innerHTML = student.firstName + ' ' + student.middleName;
         template.querySelector(".list_last_name").innerHTML = student.lastName;
-        template.querySelector(".list_blood_status").innerHTML = student.firstName;
+        template.querySelector(".list_blood_status").innerHTML = student.bloodStatus;
         template.querySelector(".list_prefect").innerHTML = student.isPrefect ? 'Yes' : 'No';
         template.querySelector(".list_inq_squad").innerHTML = student.isInqSquadMember ? 'Yes' : 'No';
         template.querySelector(".list_house").innerHTML = `
@@ -155,7 +175,21 @@ ${student.house}
 `;
 
         destStudentList.appendChild(template);
-    })
+        destStudentList.lastElementChild.addEventListener("click", openPopup);
+
+        function openPopup() {
+            popup.style.display = "block";
+            document.querySelector("body").style.overflow = "hidden";
+
+            popupDim.addEventListener("click", closePopup);
+            document.querySelector(".close").addEventListener("click", closePopup);
+        }
+    });
+}
+
+function closePopup() {
+    popup.style.display = "none";
+    document.body.style.overflow = "visible";
 }
 
 

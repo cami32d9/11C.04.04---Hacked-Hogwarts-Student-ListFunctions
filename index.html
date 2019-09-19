@@ -49,19 +49,71 @@
                 <button>Show expelled students</button>
 
             </div>
+            <div class="popup_container">
+                <div class="popup_dim"></div>
+                <div class="popup">
 
-<!--            <div class="popup">-->
-<!--                <div class="popup_dim"></div>-->
-<!--                <div class="popup_window">-->
+                    <div class="close">
+                        <img src="elements/close.svg" alt="Close popup">
+                    </div>
 
-<!--                    <div class="close">-->
-<!--                        <img src="elements/close.svg" alt="Close popup">-->
-<!--                    </div>-->
+                    <h2>Harry James Potter</h2>
 
-<!--                    <div class="popup_info"></div>-->
+                    <div class="popup_info">
 
-<!--                </div>-->
-<!--            </div>-->
+                        <div class="popup_image">
+                            <img
+                                src="elements/students/potter_h.png"
+                                alt="Student Image of Student"
+                                class=""
+                                onerror="this.src='http://placehold.it/100x100'"
+                            >
+                        </div>
+
+                        <table class="popup_student_info">
+
+                            <tr class="popup_first_name">
+                                <td class="popup_info_label">First name:</td>
+                                <td class="popup_info_content">First name</td>
+                            </tr>
+                            <tr class="popup_middle_name">
+                                <td class="popup_info_label">Middle name:</td>
+                                <td class="popup_info_content">Middle name</td>
+                            </tr>
+                            <tr class="popup_last_name">
+                                <td class="popup_info_label">Last name:</td>
+                                <td class="popup_info_content">Last name</td>
+                            </tr>
+                            <tr class="popup_blood_status">
+                                <td class="popup_info_label">Blood status:</td>
+                                <td class="popup_info_content">Blood status</td>
+                            </tr>
+
+                        </table>
+
+                        <div class="popup_statuses">
+                            <div class="popup_prefect">
+                                <img src="elements/prefect_icon.svg" class="icon">
+                                Prefect
+                            </div>
+                            <div class="popup_inq">
+
+                                <img src="elements/inq_icon.svg" class="icon">
+                                Inquisitorial Squad Member
+                            </div>
+                        </div>
+
+                        <div class="popup_option_buttons">
+                            <b>Admin interface</b>
+                            <button>Make prefect</button>
+                            <button>Make Inq. Squad member</button>
+                            <button>Expel student</button>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
 
 
             <div class="student_list">
@@ -92,29 +144,31 @@
             </div>
 
             <template class="student_template">
-
+<!--<div class="list_student_container">-->
                 <div>
                     <img
                         src="elements/students/potter_h.png"
                         alt="Student Image of Student"
                         class="student_thumbnail"
+                        onerror="this.src='http://placehold.it/100x100'"
                     >
                 </div>
                 <div class="list_last_name">
-                    Potter
+                    Last name
                 </div>
                 <div class="list_first_names">
-                    Harry James
+                    First name(s)
                 </div>
                 <div class="list_blood_status">
-                    Full blood
+                    Blood status
                 </div>
                 <div class="list_prefect"></div>
                 <div class="list_inq_squad"></div>
                 <div class="list_house">
-                    Gryffindor
+                    House
                     <img src="elements/Gryffindor_crest.png" class="crest" alt="House crest">
                 </div>
+<!--</div>-->
 
             </template>
 
@@ -129,3 +183,10 @@
     <script src="script.js"></script>
 </body>
 </html>
+
+<!-- CREDITS
+
+<div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/"             title="Flaticon">www.flaticon.com</a></div>
+<div>Icons made by <a href="https://www.flaticon.com/authors/dave-gandy" title="Dave Gandy">Dave Gandy</a> from <a href="https://www.flaticon.com/"             title="Flaticon">www.flaticon.com</a></div>
+
+-->
