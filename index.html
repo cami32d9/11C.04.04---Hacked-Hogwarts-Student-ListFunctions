@@ -86,100 +86,100 @@
         </template>
 
 
-            <template class="student_template">
-                <tr class="list_student_container">
-                    <td class="thumbnail">
+        <template class="student_template">
+            <tr class="list_student_container">
+                <td class="thumbnail">
+                    <img
+                        src="elements/students/potter_h.png"
+                        alt="Student Image of Student"
+                        class="student_thumbnail"
+                        onerror="this.src='http://placehold.it/100x100'"
+                    >
+                </td>
+                <td class="list_last_name">
+                    <div class="td_label desktop-hidden">Last name:&nbsp;</div>
+                </td>
+                <td class="list_first_names">
+                    <div class="td_label desktop-hidden">First name(s):&nbsp;</div>
+                </td>
+                <td class="list_blood_status">
+                    <div class="td_label desktop-hidden">Blood status:&nbsp;</div>
+                </td>
+                <td class="list_prefect"></td>
+                <td class="list_inq_squad"></td>
+                <td class="list_house">
+                    House
+                    <img src="elements/Gryffindor_crest.png" class="crest" alt="House crest">
+                </td>
+            </tr>
+        </template>
+
+
+        <div class="popup_container">
+            <div class="popup_dim"></div>
+            <div class="popup">
+
+                <div class="close">
+                    <img src="elements/close.svg" alt="Close popup">
+                </div>
+
+                <h2>Harry James Potter</h2>
+
+                <div class="popup_info">
+
+                    <div class="popup_image">
                         <img
                             src="elements/students/potter_h.png"
                             alt="Student Image of Student"
-                            class="student_thumbnail"
+                            class="student_image"
                             onerror="this.src='http://placehold.it/100x100'"
                         >
-                    </td>
-                    <td class="list_last_name">
-                        Last name
-                    </td>
-                    <td class="list_first_names">
-                        First name(s)
-                    </td>
-                    <td class="list_blood_status">
-                        Blood status
-                    </td>
-                    <td class="list_prefect"></td>
-                    <td class="list_inq_squad"></td>
-                    <td class="list_house">
-                        House
-                        <img src="elements/Gryffindor_crest.png" class="crest" alt="House crest">
-                    </td>
-                </tr>
-            </template>
-
-
-            <div class="popup_container">
-                <div class="popup_dim"></div>
-                <div class="popup">
-
-                    <div class="close">
-                        <img src="elements/close.svg" alt="Close popup">
                     </div>
 
-                    <h2>Harry James Potter</h2>
+                    <table class="popup_student_info">
 
-                    <div class="popup_info">
+                        <tr class="popup_first_name">
+                            <td class="td_label">First name:</td>
+                            <td class="popup_info_content">First name</td>
+                        </tr>
+                        <!--                            <tr class="popup_middle_name">-->
+                        <!--                                <td class="td_label">Middle name:</td>-->
+                        <!--                                <td class="popup_info_content">Middle name</td>-->
+                        <!--                            </tr>-->
+                        <tr class="popup_last_name">
+                            <td class="td_label">Last name:</td>
+                            <td class="popup_info_content">Last name</td>
+                        </tr>
+                        <tr class="popup_blood_status">
+                            <td class="td_label">Blood status:</td>
+                            <td class="popup_info_content">Blood status</td>
+                        </tr>
 
-                        <div class="popup_image">
-                            <img
-                                src="elements/students/potter_h.png"
-                                alt="Student Image of Student"
-                                class="student_image"
-                                onerror="this.src='http://placehold.it/100x100'"
-                            >
+                    </table>
+
+                    <div class="popup_statuses">
+                        <div class="popup_prefect">
+                            <img src="elements/prefect_icon.svg" class="icon">
+                            Prefect
                         </div>
+                        <div class="popup_inq_squad">
 
-                        <table class="popup_student_info">
-
-                            <tr class="popup_first_name">
-                                <td class="popup_info_label">First name:</td>
-                                <td class="popup_info_content">First name</td>
-                            </tr>
-                            <!--                            <tr class="popup_middle_name">-->
-                            <!--                                <td class="popup_info_label">Middle name:</td>-->
-                            <!--                                <td class="popup_info_content">Middle name</td>-->
-                            <!--                            </tr>-->
-                            <tr class="popup_last_name">
-                                <td class="popup_info_label">Last name:</td>
-                                <td class="popup_info_content">Last name</td>
-                            </tr>
-                            <tr class="popup_blood_status">
-                                <td class="popup_info_label">Blood status:</td>
-                                <td class="popup_info_content">Blood status</td>
-                            </tr>
-
-                        </table>
-
-                        <div class="popup_statuses">
-                            <div class="popup_prefect">
-                                <img src="elements/prefect_icon.svg" class="icon">
-                                Prefect
-                            </div>
-                            <div class="popup_inq_squad">
-
-                                <img src="elements/inq_icon.svg" class="icon">
-                                Inquisitorial Squad Member
-                            </div>
+                            <img src="elements/inq_icon.svg" class="icon">
+                            Inquisitorial Squad Member
                         </div>
-
-                        <div class="popup_option_buttons">
-                            <b>Admin interface</b>
-                            <button>Make prefect</button>
-                            <button>Make Inq. Squad member</button>
-                            <button>Expel student</button>
-                        </div>
-
-
                     </div>
+
+                    <div class="popup_option_buttons">
+                        <b>Admin interface</b>
+                        <button>Make prefect</button>
+                        <button>Make Inq. Squad member</button>
+                        <button>Expel student</button>
+                    </div>
+
+
                 </div>
             </div>
+        </div>
 
     </main>
     <script src="script.js"></script>

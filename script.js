@@ -167,9 +167,9 @@ function showStudentList(list) {
         }
 
         template.querySelector(".student_thumbnail").src = `elements/students/${studentPortrait}.png`;
-        template.querySelector(".list_first_names").innerHTML = student.firstName + ' ' + student.middleName;
-        template.querySelector(".list_last_name").innerHTML = student.lastName;
-        template.querySelector(".list_blood_status").innerHTML = student.bloodStatus;
+        template.querySelector(".list_first_names").innerHTML += `${student.firstName} ${student.middleName}`;
+        template.querySelector(".list_last_name").innerHTML += student.lastName;
+        template.querySelector(".list_blood_status").innerHTML += student.bloodStatus;
         template.querySelector(".list_prefect").innerHTML = student.isPrefect ? 'Yes' : 'No';
         template.querySelector(".list_inq_squad").innerHTML = student.isInqSquadMember ? 'Yes' : 'No';
         template.querySelector(".list_house").innerHTML = `
