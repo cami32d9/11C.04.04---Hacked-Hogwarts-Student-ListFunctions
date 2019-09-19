@@ -140,6 +140,9 @@ function createFinishedList() {
 // ----- SHOW IN DOM -----
 
 function showStudentList(list) {
+
+    destStudentList.appendChild(document.querySelector(".table_headings_template").content.cloneNode(true));
+
     list.forEach(student => {
         const template = studentTemplate.content.cloneNode(true);
 
@@ -178,6 +181,16 @@ ${student.house}
         destStudentList.lastElementChild.addEventListener("click", openPopup);
 
         function openPopup() {
+
+            popup.querySelector("h2").innerHTML = `${student.firstName} ${student.lastName}`;
+            popup.querySelector(".student_image").src = `elements/students/${studentPortrait}.png`;
+            popup.querySelector(".popup_first_name .popup_info_content").innerHTML = student.firstName + ' ' + student.middleName;
+            popup.querySelector(".popup_last_name .popup_info_content").innerHTML = student.lastName;
+            popup.querySelector(".popup_blood_status .popup_info_content").innerHTML = student.bloodStatus;
+            popup.querySelector(".popup_prefect").innerHTML = student.isPrefect ? 'Yes' : 'No';
+            popup.querySelector(".popup_inq_squad").innerHTML = student.isInqSquadMember ? 'Yes' : 'No';
+            popup.querySelector(".popup").style.backgroundColor = `var(--${student.house}-main-color)`;
+
             popup.style.display = "block";
             document.querySelector("body").style.overflow = "hidden";
 

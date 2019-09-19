@@ -11,8 +11,9 @@
     <title>11C.04.04 - Hacked Hogwarts Student ListFunctions</title>
 </head>
 <body>
-    <main>
 
+
+    <main>
         <h1>List of Hogwarts Students year 1991</h1>
 
         <div class="student_list_container">
@@ -49,6 +50,71 @@
                 <button>Show expelled students</button>
 
             </div>
+
+            <table class="student_list">
+
+            </table>
+        </div>
+
+
+        <!-- HEADINGS -->
+        <template class="table_headings_template">
+            <tr class="table_headings">
+                <td></td>
+                <td>
+                    Last name
+                    <img src="elements/sort_icon.png" alt="Sort by Last name" class="sort_icon sorting_active">
+                </td>
+                <td>
+                    First name(s)
+                    <img src="elements/sort_icon.png" alt="Sort by Last name" class="sort_icon">
+                </td>
+                <td>
+                    Blood status
+                </td>
+                <td>
+                    Prefect
+                </td>
+                <td>
+                    Inq. Squad member
+                </td>
+                <td>
+                    House
+                    <img src="elements/sort_icon.png" alt="Sort by Last name" class="sort_icon">
+                </td>
+            </tr>
+        </template>
+
+
+            <template class="student_template">
+                <tr class="list_student_container">
+                    <td class="thumbnail">
+                        <img
+                            src="elements/students/potter_h.png"
+                            alt="Student Image of Student"
+                            class="student_thumbnail"
+                            onerror="this.src='http://placehold.it/100x100'"
+                        >
+                    </td>
+                    <td class="list_last_name">
+                        Last name
+                    </td>
+                    <td class="list_first_names">
+                        First name(s)
+                    </td>
+                    <td class="list_blood_status">
+                        Blood status
+                    </td>
+                    <td class="list_prefect"></td>
+                    <td class="list_inq_squad"></td>
+                    <td class="list_house">
+                        House
+                        <img src="elements/Gryffindor_crest.png" class="crest" alt="House crest">
+                    </td>
+                </tr>
+            </template>
+
+
             <div class="popup_container">
                 <div class="popup_dim"></div>
                 <div class="popup">
@@ -65,7 +131,7 @@
                             <img
                                 src="elements/students/potter_h.png"
                                 alt="Student Image of Student"
-                                class=""
+                                class="student_image"
                                 onerror="this.src='http://placehold.it/100x100'"
                             >
                         </div>
@@ -76,10 +142,10 @@
                                 <td class="popup_info_label">First name:</td>
                                 <td class="popup_info_content">First name</td>
                             </tr>
-                            <tr class="popup_middle_name">
-                                <td class="popup_info_label">Middle name:</td>
-                                <td class="popup_info_content">Middle name</td>
-                            </tr>
+                            <!--                            <tr class="popup_middle_name">-->
+                            <!--                                <td class="popup_info_label">Middle name:</td>-->
+                            <!--                                <td class="popup_info_content">Middle name</td>-->
+                            <!--                            </tr>-->
                             <tr class="popup_last_name">
                                 <td class="popup_info_label">Last name:</td>
                                 <td class="popup_info_content">Last name</td>
@@ -96,7 +162,7 @@
                                 <img src="elements/prefect_icon.svg" class="icon">
                                 Prefect
                             </div>
-                            <div class="popup_inq">
+                            <div class="popup_inq_squad">
 
                                 <img src="elements/inq_icon.svg" class="icon">
                                 Inquisitorial Squad Member
@@ -113,70 +179,6 @@
 
                     </div>
                 </div>
-            </div>
-
-
-            <div class="student_list">
-                <!-- HEADINGS -->
-
-                <div></div>
-                <div>
-                    Last name
-                    <img src="elements/sort_icon.png" alt="Sort by Last name" class="sort_icon sorting_active">
-                </div>
-                <div>
-                    First name(s)
-                    <img src="elements/sort_icon.png" alt="Sort by Last name" class="sort_icon">
-                </div>
-                <div>
-                    Blood status
-                </div>
-                <div>
-                    Prefect
-                </div>
-                <div>
-                    Inq. Squad member
-                </div>
-                <div>
-                    House
-                    <img src="elements/sort_icon.png" alt="Sort by Last name" class="sort_icon">
-                </div>
-            </div>
-
-            <template class="student_template">
-<!--<div class="list_student_container">-->
-                <div>
-                    <img
-                        src="elements/students/potter_h.png"
-                        alt="Student Image of Student"
-                        class="student_thumbnail"
-                        onerror="this.src='http://placehold.it/100x100'"
-                    >
-                </div>
-                <div class="list_last_name">
-                    Last name
-                </div>
-                <div class="list_first_names">
-                    First name(s)
-                </div>
-                <div class="list_blood_status">
-                    Blood status
-                </div>
-                <div class="list_prefect"></div>
-                <div class="list_inq_squad"></div>
-                <div class="list_house">
-                    House
-                    <img src="elements/Gryffindor_crest.png" class="crest" alt="House crest">
-                </div>
-<!--</div>-->
-
-            </template>
-
-            <div class="list_options">
-                <b>Options</b><br>
-                Expell <br>
-                Make prefect <br>
-                Make member of Inquisitorial Squad
             </div>
 
     </main>

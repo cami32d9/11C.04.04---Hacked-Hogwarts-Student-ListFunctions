@@ -1,3 +1,10 @@
+:root {
+    --Gryffindor-main-color: #ac1200;
+    --Hufflepuff-main-color: #aca125;
+    --Slytherin-main-color: #328522;
+    --Ravenclaw-main-color: #15466d;
+}
+
 /* ----- GENERAL DESIGN -----*/
 
 html {
@@ -43,11 +50,7 @@ main {
 
 .student_list {
     padding: 20px;
-    display: grid;
-    grid-template-columns: repeat(7, auto);
-    grid-column-gap: 50px;
-    grid-row-gap: 10px;
-    align-items: center;
+    width: 100%;
 }
 
 
@@ -72,9 +75,10 @@ main {
 .popup {
     position: fixed;
     left: 50%;
-    transform: translateX(-50%);
+    top: 50%;
+    transform: translateX(-50%) translateY(-50% );
     width: 1100px;
-    max-height: 90vh;
+    /*max-height: 90vh;*/
     background-color: #ac1200;
 }
 
@@ -159,6 +163,71 @@ h2 {
 }
 
 .list_student_container {
-    display: grid;
-    grid-template: inherit;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    margin: 10px;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+td {
+    padding: 10px;
+}
+
+@media screen and (max-width: 767px) {
+    .student_list_container {
+        width: 90vw;
+        margin: 0 auto;
+    }
+
+    .thumbnail {
+        text-align: center;
+        grid-column: 1/4;
+    }
+
+    .student_thumbnail {
+        width: auto;
+    }
+
+    .list_student_container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .table_headings {
+        display: none;
+    }
+
+    .list_house {
+        grid-column: 1/4;
+        grid-row: 2/3;
+        text-align: center;
+    }
+
+    .list_last_name {
+        grid-column: 1/2;
+        grid-row: 3/4;
+    }
+
+    .list_first_names {
+        grid-column: 1/2;
+        grid-row: 4/5;
+    }
+
+    .list_blood_status {
+        grid-column: 1/2;
+        grid-row: 5/6;
+    }
+
+    .list_prefect {
+        grid-column: 3/4;
+        grid-row: 3/4;
+    }
+
+    .list_inq_squad {
+        grid-column: 3/4;
+        grid-row: 4/5;
+    }
 }
