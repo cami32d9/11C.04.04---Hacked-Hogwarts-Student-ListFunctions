@@ -32,7 +32,6 @@ function start() {
     addMeToList();
     createFinishedList();
     addEventListeners();
-    // showStudentList(studentArray);
 }
 
 
@@ -165,13 +164,13 @@ function showStudentList(list) {
         else {
         studentPortrait = `${lastName}_${student.firstName.substring(0, 1)}`.toLowerCase();
         }
-
+        template.querySelector(".student_thumbnail").style.borderColor = `var(--${student.house}-main-color)`;
         template.querySelector(".student_thumbnail").src = `elements/students/${studentPortrait}.png`;
         template.querySelector(".list_first_names").innerHTML += `${student.firstName} ${student.middleName}`;
         template.querySelector(".list_last_name").innerHTML += student.lastName;
         template.querySelector(".list_blood_status").innerHTML += student.bloodStatus;
-        template.querySelector(".list_prefect").innerHTML = student.isPrefect ? 'Yes' : 'No';
-        template.querySelector(".list_inq_squad").innerHTML = student.isInqSquadMember ? 'Yes' : 'No';
+        template.querySelector(".list_prefect").innerHTML = student.isPrefect ? 'YesPrefect' : 'NoPrefect';
+        template.querySelector(".list_inq_squad").innerHTML = student.isInqSquadMember ? 'YesPrefect' : 'NoInq';
         template.querySelector(".list_house").innerHTML = `
 ${student.house} 
 <img src="elements/${student.house}_crest.png" class="crest" alt="${student.house} House Crest">
@@ -187,8 +186,8 @@ ${student.house}
             popup.querySelector(".popup_first_name .popup_info_content").innerHTML = student.firstName + ' ' + student.middleName;
             popup.querySelector(".popup_last_name .popup_info_content").innerHTML = student.lastName;
             popup.querySelector(".popup_blood_status .popup_info_content").innerHTML = student.bloodStatus;
-            popup.querySelector(".popup_prefect").innerHTML = student.isPrefect ? 'Yes' : 'No';
-            popup.querySelector(".popup_inq_squad").innerHTML = student.isInqSquadMember ? 'Yes' : 'No';
+            popup.querySelector(".popup_prefect").innerHTML = student.isPrefect ? 'YesPrefect' : 'NoPrefect';
+            popup.querySelector(".popup_inq_squad").innerHTML = student.isInqSquadMember ? 'YesInq' : 'NoInq';
             popup.querySelector(".popup").style.backgroundColor = `var(--${student.house}-main-color)`;
 
             popup.style.display = "block";
@@ -196,6 +195,38 @@ ${student.house}
 
             popupDim.addEventListener("click", closePopup);
             document.querySelector(".close").addEventListener("click", closePopup);
+
+            addPopupListeners();
+        }
+
+        function addPopupListeners() {
+            popup.querySelector(".make_prefect").addEventListener("click", function _click() {
+                student.isPrefect = true;
+                destStudentList.innerHTML = "";
+                showStudentList(list);
+                openPopup();
+                popup.querySelector(".make_prefect").removeEventListener("click", _click);
+            });
+
+
+            popup.querySelector(".make_inq").addEventListener("click", function _click() {
+                student.isInqSquadMember = true;
+                destStudentList.innerHTML = "";
+                showStudentList(list);
+                openPopup();
+                popup.querySelector(".make_inq").removeEventListener("click", _click);
+            });
+
+
+            popup.querySelector(".expel").addEventListener("click", function _click() {
+                student.isExpelled = true;
+                popup.style.backgroundColor = "blue";
+                destStudentList.innerHTML = "";
+                showStudentList(list);
+                openPopup();
+                popup.querySelector(".expel").removeEventListener("click", _click);
+            });
+
         }
     });
 }
@@ -222,7 +253,8 @@ function createObjectOfMe() {
         house: "Hufflepuff",
         bloodStatus: "Pureblood",
         isPrefect: false,
-        isInqSquadMember: false
+        isInqSquadMember: false,
+        isExpelled: false,
     };
 }
 

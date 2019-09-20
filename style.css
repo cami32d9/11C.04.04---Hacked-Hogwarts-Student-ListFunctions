@@ -153,6 +153,10 @@ h2 {
     color: white;
 }
 
+.td_label {
+    padding-right: 10px;
+}
+
 .popup_student_info {
     display: grid;
 }
