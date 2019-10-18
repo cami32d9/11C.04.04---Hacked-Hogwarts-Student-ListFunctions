@@ -47,6 +47,20 @@ function addEventListeners() {
         house = this.value;
         createFinishedList();
     });
+
+    document.querySelector(".show_expelled_button").addEventListener("click", function _listener() {
+        destStudentList.setAttribute("showingExpelled", "true");
+        this.style.display = "none";
+        document.querySelector(".show_students_button").style.display = "inline-block";
+        createExpelledList();
+    });
+
+    document.querySelector(".show_students_button").addEventListener("click", function _listener() {
+        destStudentList.setAttribute("showingExpelled", "false");
+        this.style.display = "none";
+        document.querySelector(".show_expelled_button").style.display = "inline-block";
+        createFinishedList();
+    });
 }
 
 // ----- CREATING THE LIST -----
@@ -102,6 +116,8 @@ function addBloodStatus(thisStudent) {
 
 // ----- FILTER AND SORT FUNCTIONS -----
 
+
+// Filter by house
 function filterFunction(list, field, value) {
     if (value === "All") {
         return list;
@@ -111,12 +127,22 @@ function filterFunction(list, field, value) {
         return student[field] === value;
     });
 }
-F
+
+// Sort by
 function sortFunction(list, sortBy) {
     list.sort((a, b) => {
         return a[sortBy].localeCompare(b[sortBy]);
     });
     return list;
+}
+
+// Filter expelled
+
+function showExpelled(list) {
+    console.log("Hi");
+    return list.filter(function (student) {
+        return student["isExpelled"] === true;
+    });
 }
 
 
@@ -131,6 +157,13 @@ function createFinishedList() {
     showStudentList(currentStudentList);
 }
 
+function createExpelledList() {
+        const currentStudentList = showExpelled(filterFunction(sortFunction(studentArray, sortBy), 'house', house));
+        console.log(currentStudentList);
+
+        destStudentList.innerHTML = "";
+        showStudentList(currentStudentList);
+}
 
 // ----- SHOW IN DOM -----
 
@@ -163,7 +196,7 @@ function showStudentList(list) {
         studentPortrait = `${lastName}_${student.firstName.substring(0, 1)}`.toLowerCase();
         }
 
-        if (student.isExpelled) {
+        if (destStudentList.getAttribute("showingExpelled") !== "true" && student.isExpelled) {
             template.querySelector(".list_student_container").style.display = "none";
         }
 
@@ -236,10 +269,13 @@ ${student.house}
 
             popup.querySelector(".expel").addEventListener("click", function _click() {
 
-                if (student.firstName === "Camilla") {
+                if (document.querySelector(".popup_first_name .popup_info_content").innerHTML.includes("Camilla")) {
                     console.log("NOPE");
+                    document.querySelector("main").style.display = "none";
+                    document.querySelector(".dontexpelme").style.display = "flex";
                 }
 
+                else {
                 student.isExpelled = true;
                 student.isInqSquadMember = false;
                 student.isPrefect = false;
@@ -259,8 +295,8 @@ ${student.house}
                         });
                     }
                 })
+            }
             });
-
         }
     });
 }
