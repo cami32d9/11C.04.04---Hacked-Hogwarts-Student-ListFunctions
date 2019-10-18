@@ -51,6 +51,12 @@
 
             </div>
 
+            <div class="student_count">
+                Showing
+                <div class="student_count_number">x</div>
+                students
+            </div>
+
             <table class="student_list">
 
             </table>
@@ -63,11 +69,9 @@
                 <td></td>
                 <td>
                     Last name
-                    <img src="elements/sort_icon.png" alt="Sort by Last name" class="sort_icon sorting_active">
                 </td>
                 <td>
                     First name(s)
-                    <img src="elements/sort_icon.png" alt="Sort by Last name" class="sort_icon">
                 </td>
                 <td>
                     Blood status
@@ -80,7 +84,6 @@
                 </td>
                 <td>
                     House
-                    <img src="elements/sort_icon.png" alt="Sort by Last name" class="sort_icon">
                 </td>
             </tr>
         </template>
@@ -125,7 +128,8 @@
                     <img src="elements/close.svg" alt="Close popup">
                 </div>
 
-                <h2>Harry James Potter</h2>
+                <h2>Student name</h2>
+                <h3 class="is_expelled">EXPELLED</h3>
 
                 <div class="popup_info">
 
@@ -173,9 +177,9 @@
 
                     <div class="popup_option_buttons">
                         <b>Admin interface</b>
-                        <button class="make_prefect">Make prefect</button>
-                        <button class="make_inq">Make Inq. Squad member</button>
-                        <button class="expel">Expel student</button>
+                        <button class="options_button make_prefect">Make prefect</button>
+                        <button class="options_button make_inq">Make Inq. Squad member</button>
+                        <button class="options_button expel">Expel student</button>
                     </div>
 
 

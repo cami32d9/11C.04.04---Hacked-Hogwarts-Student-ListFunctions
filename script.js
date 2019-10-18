@@ -40,13 +40,11 @@ function start() {
 function addEventListeners() {
     document.querySelector(".sort").addEventListener("change", function () {
         sortBy = this.value;
-        console.log(this.value);
         createFinishedList();
     });
 
     document.querySelector(".filter").addEventListener("change", function () {
         house = this.value;
-        console.log(this.value);
         createFinishedList();
     });
 }
@@ -76,6 +74,7 @@ function createStudentObject(student) {
         house: capitalize(student.house.trim()),
         isPrefect: false,
         isInqSquadMember: false,
+        isExpelled: false,
         bloodStatus: null,
     };
 }
@@ -90,10 +89,8 @@ function addBloodStatus(thisStudent) {
 
     if (familyBlood.half.includes(thisStudent.lastName)) {
         thisStudent.bloodStatus = "Halfblood";
-        // console.log("We're half");
     } else if (familyBlood.pure.includes(thisStudent.lastName)) {
         thisStudent.bloodStatus = "Pureblood";
-        // console.log("We're pure");
     } else {
         thisStudent.bloodStatus = "Muggleblood";
     }
@@ -114,7 +111,7 @@ function filterFunction(list, field, value) {
         return student[field] === value;
     });
 }
-
+F
 function sortFunction(list, sortBy) {
     list.sort((a, b) => {
         return a[sortBy].localeCompare(b[sortBy]);
@@ -129,7 +126,6 @@ function createFinishedList() {
     const currentStudentList = filterFunction(sortFunction(studentArray, sortBy), 'house', house);
 
     console.log(currentStudentList);
-    console.log(`Showing ${currentStudentList.length} students`);
 
     destStudentList.innerHTML = "";
     showStudentList(currentStudentList);
@@ -139,6 +135,8 @@ function createFinishedList() {
 // ----- SHOW IN DOM -----
 
 function showStudentList(list) {
+
+    document.querySelector(".student_count_number").textContent = list.length;
 
     destStudentList.appendChild(document.querySelector(".table_headings_template").content.cloneNode(true));
 
@@ -164,13 +162,18 @@ function showStudentList(list) {
         else {
         studentPortrait = `${lastName}_${student.firstName.substring(0, 1)}`.toLowerCase();
         }
+
+        if (student.isExpelled) {
+            template.querySelector(".list_student_container").style.display = "none";
+        }
+
         template.querySelector(".student_thumbnail").style.borderColor = `var(--${student.house}-main-color)`;
         template.querySelector(".student_thumbnail").src = `elements/students/${studentPortrait}.png`;
         template.querySelector(".list_first_names").innerHTML += `${student.firstName} ${student.middleName}`;
         template.querySelector(".list_last_name").innerHTML += student.lastName;
         template.querySelector(".list_blood_status").innerHTML += student.bloodStatus;
-        template.querySelector(".list_prefect").innerHTML = student.isPrefect ? 'YesPrefect' : 'NoPrefect';
-        template.querySelector(".list_inq_squad").innerHTML = student.isInqSquadMember ? 'YesPrefect' : 'NoInq';
+        template.querySelector(".list_prefect").innerHTML = student.isPrefect ? '<img src="elements/prefect_icon.svg" class="icon"> Prefect' : '';
+        template.querySelector(".list_inq_squad").innerHTML = student.isInqSquadMember ? '<img src="elements/inq_icon.svg" class="icon"> Member' : '';
         template.querySelector(".list_house").innerHTML = `
 ${student.house} 
 <img src="elements/${student.house}_crest.png" class="crest" alt="${student.house} House Crest">
@@ -180,15 +183,28 @@ ${student.house}
         destStudentList.lastElementChild.addEventListener("click", openPopup);
 
         function openPopup() {
+            console.log(student);
 
+            popup.querySelector(".is_expelled").style.display = "none";
+            popup.querySelector(".expel").setAttribute("data-student-name", student.firstName);
             popup.querySelector("h2").innerHTML = `${student.firstName} ${student.lastName}`;
             popup.querySelector(".student_image").src = `elements/students/${studentPortrait}.png`;
             popup.querySelector(".popup_first_name .popup_info_content").innerHTML = student.firstName + ' ' + student.middleName;
             popup.querySelector(".popup_last_name .popup_info_content").innerHTML = student.lastName;
             popup.querySelector(".popup_blood_status .popup_info_content").innerHTML = student.bloodStatus;
-            popup.querySelector(".popup_prefect").innerHTML = student.isPrefect ? 'YesPrefect' : 'NoPrefect';
-            popup.querySelector(".popup_inq_squad").innerHTML = student.isInqSquadMember ? 'YesInq' : 'NoInq';
+            popup.querySelector(".popup_prefect").innerHTML = student.isPrefect ? '<img src="elements/prefect_icon.svg" class="icon"> Prefect' : '';
+            popup.querySelector(".popup_inq_squad").innerHTML = student.isInqSquadMember ? '<img src="elements/inq_icon.svg" class="icon"> Inq. Squad member' : '';
             popup.querySelector(".popup").style.backgroundColor = `var(--${student.house}-main-color)`;
+
+            if (student.isExpelled === true) {
+                popup.querySelector(".popup").style.backgroundColor = `grey`;
+                popup.querySelector(".is_expelled").style.display = "block";
+                popup.querySelector(".popup_option_buttons").style.display = "none";
+            }
+
+            else if (student.isExpelled === false) {
+                popup.querySelector(".popup_option_buttons").style.display = "flex";
+            }
 
             popup.style.display = "block";
             document.querySelector("body").style.overflow = "hidden";
@@ -219,12 +235,30 @@ ${student.house}
 
 
             popup.querySelector(".expel").addEventListener("click", function _click() {
+
+                if (student.firstName === "Camilla") {
+                    console.log("NOPE");
+                }
+
                 student.isExpelled = true;
-                popup.style.backgroundColor = "blue";
-                destStudentList.innerHTML = "";
-                showStudentList(list);
+                student.isInqSquadMember = false;
+                student.isPrefect = false;
+                console.log("EXPLELLED");
                 openPopup();
                 popup.querySelector(".expel").removeEventListener("click", _click);
+
+                console.log(this.getAttribute("data-student-name"));
+                let thisStudent = this.getAttribute("data-student-name");
+
+                document.querySelectorAll(".list_student_container").forEach(student => {
+                    if (student.querySelector(".list_first_names").innerHTML.includes(thisStudent)) {
+                        student.classList.add("fade_out");
+                        student.addEventListener("animationend", function _listener() {
+                            destStudentList.innerHTML = "";
+                            showStudentList(list);
+                        });
+                    }
+                })
             });
 
         }

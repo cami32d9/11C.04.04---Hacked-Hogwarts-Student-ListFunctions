@@ -57,9 +57,21 @@ table {
     background-color: rgba(139, 0, 0, 0.1);
 }
 
+.student_count {
+    text-align: center;
+    margin: 10px 0 20px 0;
+    font-size: 1.2rem;
+}
+
+.student_count_number {
+    display: inline-block;
+    font-weight: bold;
+}
+
 .table_headings {
     border-top: 1px solid rgba(0, 0, 0, 0.1);
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    font-weight: bold;
 }
 
 .student_list {
@@ -89,6 +101,11 @@ table {
     border: 3px solid darkred;
     border-radius: 30px;
     width: 75px;
+}
+
+.list_prefect,
+.list_inq_squad {
+    text-align: center;
 }
 
 
@@ -153,6 +170,13 @@ h2 {
     color: white;
 }
 
+.is_expelled {
+    font-size: 1.6rem;
+    width: 100%;
+    text-align: center;
+    color: white;
+}
+
 .td_label {
     padding-right: 10px;
 }
@@ -188,8 +212,30 @@ h2 {
 
 
 /* ----- HELPERS ----- */
+
+.hidden {
+    display: none;
+}
+
 .desktop-hidden {
     display: none;
+}
+
+.fade_out {
+    animation-name: fade_out_kf;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+}
+
+@keyframes fade_out_kf {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
 }
 
 
@@ -265,5 +311,4 @@ h2 {
     .desktop-hidden {
         display: block;
     }
-
 }
