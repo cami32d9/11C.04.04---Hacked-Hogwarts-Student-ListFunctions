@@ -7,6 +7,9 @@ let familyBlood;
 let studentArray = [];
 let sortBy = "lastName";
 let house = "All";
+let expelClickListener;
+let prefectClickListener;
+let inqSquadClickListener;
 
 const destStudentList = document.querySelector(".student_list");
 const studentTemplate = document.querySelector(".student_template");
@@ -249,26 +252,26 @@ ${student.house}
         }
 
         function addPopupListeners() {
-            popup.querySelector(".make_prefect").addEventListener("click", function _click() {
-                student.isPrefect = true;
+
+            inqSquadClickListener = function() {
+                student.isInqSquadMember = !student.isInqSquadMember;
+                popup.querySelector(".make_inq").textContent = student.isInqSquadMember ? "Remove inq. squad status" : "Make inq. squad member";
                 destStudentList.innerHTML = "";
                 showStudentList(list);
+                closePopup();
                 openPopup();
-                popup.querySelector(".make_prefect").removeEventListener("click", _click);
-            });
+            };
 
-
-            popup.querySelector(".make_inq").addEventListener("click", function _click() {
-                student.isInqSquadMember = true;
+            prefectClickListener = function() {
+                student.isPrefect = !student.isPrefect;
+                popup.querySelector(".make_prefect").textContent = student.isPrefect ? "Remove prefect status" : "Make prefect";
                 destStudentList.innerHTML = "";
                 showStudentList(list);
+                closePopup();
                 openPopup();
-                popup.querySelector(".make_inq").removeEventListener("click", _click);
-            });
+            };
 
-
-            popup.querySelector(".expel").addEventListener("click", function _click() {
-
+            expelClickListener = function() {
                 if (document.querySelector(".popup_first_name .popup_info_content").innerHTML.includes("Camilla")) {
                     console.log("NOPE");
                     document.querySelector("main").style.display = "none";
@@ -276,27 +279,32 @@ ${student.house}
                 }
 
                 else {
-                student.isExpelled = true;
-                student.isInqSquadMember = false;
-                student.isPrefect = false;
-                console.log("EXPLELLED");
-                openPopup();
-                popup.querySelector(".expel").removeEventListener("click", _click);
+                    student.isExpelled = true;
+                    student.isInqSquadMember = false;
+                    student.isPrefect = false;
+                    closePopup();
+                    openPopup();
 
-                console.log(this.getAttribute("data-student-name"));
-                let thisStudent = this.getAttribute("data-student-name");
+                    console.log(this.getAttribute("data-student-name"));
+                    let thisStudent = this.getAttribute("data-student-name");
 
-                document.querySelectorAll(".list_student_container").forEach(student => {
-                    if (student.querySelector(".list_first_names").innerHTML.includes(thisStudent)) {
-                        student.classList.add("fade_out");
-                        student.addEventListener("animationend", function _listener() {
-                            destStudentList.innerHTML = "";
-                            showStudentList(list);
-                        });
-                    }
-                })
-            }
-            });
+                    document.querySelectorAll(".list_student_container").forEach(student => {
+                        if (student.querySelector(".list_first_names").innerHTML.includes(thisStudent)) {
+                            student.classList.add("fade_out");
+                            student.addEventListener("animationend", function _listener() {
+                                destStudentList.innerHTML = "";
+                                showStudentList(list);
+                            });
+                        }
+                    })
+                }
+            };
+
+            popup.querySelector(".make_prefect").addEventListener("click", prefectClickListener);
+
+            popup.querySelector(".make_inq").addEventListener("click", inqSquadClickListener);
+
+            popup.querySelector(".expel").addEventListener("click", expelClickListener);
         }
     });
 }
@@ -304,6 +312,9 @@ ${student.house}
 function closePopup() {
     popup.style.display = "none";
     document.body.style.overflow = "visible";
+    popup.querySelector(".make_inq").removeEventListener("click", inqSquadClickListener);
+    popup.querySelector(".make_prefect").removeEventListener("click", prefectClickListener);
+    popup.querySelector(".expel").removeEventListener("click", expelClickListener);
 }
 
 
