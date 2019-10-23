@@ -7,6 +7,7 @@ let familyBlood;
 let studentArray = [];
 let sortBy = "lastName";
 let house = "All";
+let isShowingExpelled = false;
 let expelClickListener;
 let prefectClickListener;
 let inqSquadClickListener;
@@ -33,7 +34,7 @@ async function getJson() {
 function start() {
     createStudentArray(originalStudentArray);
     addMeToList();
-    createFinishedList();
+    createList();
     addEventListeners();
 }
 
@@ -43,26 +44,28 @@ function start() {
 function addEventListeners() {
     document.querySelector(".sort").addEventListener("change", function () {
         sortBy = this.value;
-        createFinishedList();
+        createList();
     });
 
     document.querySelector(".filter").addEventListener("change", function () {
         house = this.value;
-        createFinishedList();
+        createList();
     });
 
     document.querySelector(".show_expelled_button").addEventListener("click", function _listener() {
+        isShowingExpelled = true;
         destStudentList.setAttribute("showingExpelled", "true");
         this.style.display = "none";
         document.querySelector(".show_students_button").style.display = "inline-block";
-        createExpelledList();
+        createList();
     });
 
     document.querySelector(".show_students_button").addEventListener("click", function _listener() {
+        isShowingExpelled = false;
         destStudentList.setAttribute("showingExpelled", "false");
         this.style.display = "none";
         document.querySelector(".show_expelled_button").style.display = "inline-block";
-        createFinishedList();
+        createList();
     });
 }
 
@@ -141,19 +144,31 @@ function sortFunction(list, sortBy) {
 
 // Filter expelled
 
-function showExpelled(list) {
-    console.log("Hi");
+function showNotExpelled(list) {
     return list.filter(function (student) {
-        return student["isExpelled"] === true;
+        return student.isExpelled === false;
+    });
+}
+
+function showExpelled(list) {
+    return list.filter(function (student) {
+        return student.isExpelled === true;
     });
 }
 
 
 // ----- CREATING FINISHED LIST -----
 
-function createFinishedList() {
-    const currentStudentList = filterFunction(sortFunction(studentArray, sortBy), 'house', house);
+function createList() {
+    if (isShowingExpelled) {
+        createExpelledList();
+    } else {
+        createFinishedList();
+    }
+}
 
+function createFinishedList() {
+    const currentStudentList = showNotExpelled(filterFunction(sortFunction(studentArray, sortBy), 'house', house));
     console.log(currentStudentList);
 
     destStudentList.innerHTML = "";
@@ -161,20 +176,25 @@ function createFinishedList() {
 }
 
 function createExpelledList() {
-        const currentStudentList = showExpelled(filterFunction(sortFunction(studentArray, sortBy), 'house', house));
-        console.log(currentStudentList);
+    const currentStudentList = showExpelled(filterFunction(sortFunction(studentArray, sortBy), 'house', house));
+    console.log(currentStudentList);
 
-        destStudentList.innerHTML = "";
-        showStudentList(currentStudentList);
+    destStudentList.innerHTML = "";
+    showStudentList(currentStudentList);
 }
 
 // ----- SHOW IN DOM -----
 
 function showStudentList(list) {
 
+
     document.querySelector(".student_count_number").textContent = list.length;
 
     destStudentList.appendChild(document.querySelector(".table_headings_template").content.cloneNode(true));
+
+    if (list.length === 0) {
+        destStudentList.innerHTML = `<div style="text-align: center; margin-bottom: 20px;">No students to show</div>`
+    }
 
     list.forEach(student => {
         const template = studentTemplate.content.cloneNode(true);
@@ -199,7 +219,8 @@ function showStudentList(list) {
         studentPortrait = `${lastName}_${student.firstName.substring(0, 1)}`.toLowerCase();
         }
 
-        if (destStudentList.getAttribute("showingExpelled") !== "true" && student.isExpelled) {
+        let isShowingNotExpelledList = destStudentList.getAttribute("showingExpelled") !== "true";
+        if (isShowingNotExpelledList && student.isExpelled) {
             template.querySelector(".list_student_container").style.display = "none";
         }
 
@@ -252,21 +273,23 @@ ${student.house}
         }
 
         function addPopupListeners() {
+            const inqSquadButton = popup.querySelector(".make_inq");
+            const prefectButton = popup.querySelector(".make_prefect");
+            const expelButton = popup.querySelector(".expel");
 
             inqSquadClickListener = function() {
                 student.isInqSquadMember = !student.isInqSquadMember;
-                popup.querySelector(".make_inq").textContent = student.isInqSquadMember ? "Remove inq. squad status" : "Make inq. squad member";
+                inqSquadButton.textContent = student.isInqSquadMember ? "Remove inq. squad status" : "Make inq. squad member";
                 destStudentList.innerHTML = "";
-                showStudentList(list);
+                createList();
                 closePopup();
                 openPopup();
             };
 
             prefectClickListener = function() {
                 student.isPrefect = !student.isPrefect;
-                popup.querySelector(".make_prefect").textContent = student.isPrefect ? "Remove prefect status" : "Make prefect";
                 destStudentList.innerHTML = "";
-                showStudentList(list);
+                createList();
                 closePopup();
                 openPopup();
             };
@@ -293,18 +316,24 @@ ${student.house}
                             student.classList.add("fade_out");
                             student.addEventListener("animationend", function _listener() {
                                 destStudentList.innerHTML = "";
-                                showStudentList(list);
+                                createList();
                             });
                         }
                     })
                 }
             };
 
-            popup.querySelector(".make_prefect").addEventListener("click", prefectClickListener);
-
-            popup.querySelector(".make_inq").addEventListener("click", inqSquadClickListener);
-
-            popup.querySelector(".expel").addEventListener("click", expelClickListener);
+            const prefects = list.filter(s => s.isPrefect);
+            if (!student.isPrefect && prefects.length >= 2) {
+                prefectButton.disabled = true;
+                prefectButton.textContent = "No can do";
+            } else {
+                prefectButton.disabled = false;
+                prefectButton.textContent = student.isPrefect ? "Remove prefect status" : "Make prefect";
+                prefectButton.addEventListener("click", prefectClickListener);
+            }
+            inqSquadButton.addEventListener("click", inqSquadClickListener);
+            expelButton.addEventListener("click", expelClickListener);
         }
     });
 }
@@ -351,3 +380,10 @@ function randomizeBloodStatus(thisStudent) {
 
     return thisStudent;
 }
+
+// TODO: Add house crest to popup
+// TODO: Reduce number of grid columns in student list under 400px
+// TODO: Linebreak in sorting options under 550 px
+// TODO: Max width of expelling error image
+// TODO: Limit inq squad members to pure blood and Slytherin
+// TODO: Cry over middle- and nick names

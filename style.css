@@ -14,9 +14,12 @@ html {
 
 body {
     margin: 0;
+    overflow-y: scroll;
 }
 
 main {
+    display: flex;
+    flex-direction: column;
     width: fit-content;
     margin: 0 auto;
 }
@@ -53,8 +56,9 @@ table {
 /* ----- STUDENT LIST ----- */
 
 .student_list_container {
-    width: fit-content;
+    width: 900px;
     background-color: rgba(139, 0, 0, 0.1);
+    margin-bottom: 20px;
 }
 
 .student_count {
@@ -127,7 +131,7 @@ table {
 }
 
 .popup {
-    width: 1100px;
+    width: 900px;
     background-color: #ac1200;
 
     /* Places the box in the middle of the container */
@@ -142,7 +146,8 @@ table {
     padding: 50px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 140px auto auto fit-content(500px);
+    grid-gap: 20px;
+    grid-template-columns: 140px auto auto auto;
 }
 
 .close img {
@@ -185,12 +190,16 @@ h2 {
     display: grid;
 }
 
-.popup_statuses {
-    padding-right: 150px;
+.popup_options_container {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
 }
 
 .popup_option_buttons {
+    width: 190px;
     display: flex;
+    justify-content: flex-end;
     flex-direction: column;
     align-items: flex-end;
     padding: 10px;
@@ -252,7 +261,7 @@ h2 {
 }
 
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 899px) {
 
     /* ----- STUDENT LIST ----- */
 
@@ -320,8 +329,41 @@ h2 {
     }
 
 
+    /* ----- POPUP ----- */
+
+    .popup {
+        width: 90vw;
+        margin: 0 auto;
+    }
+
+    .popup_image {
+        margin-right: 100px;
+    }
+
+    .popup_info {
+        grid-template-columns: auto 1fr;
+    }
+
+
     /* ----- HELPERS ----- */
     .desktop-hidden {
         display: block;
     }
+}
+
+
+@media screen and (max-width: 600px) {
+
+    .popup_info {
+        grid-template-columns: 1fr;
+    }
+
+    .popup_options_container {
+        justify-content: flex-start;
+    }
+}
+
+
+@media screen and (max-width: 400px) {
+
 }
