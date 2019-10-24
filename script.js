@@ -169,7 +169,6 @@ function createList() {
 
 function createFinishedList() {
     const currentStudentList = showNotExpelled(filterFunction(sortFunction(studentArray, sortBy), 'house', house));
-    console.log(currentStudentList);
 
     destStudentList.innerHTML = "";
     showStudentList(currentStudentList);
@@ -177,7 +176,6 @@ function createFinishedList() {
 
 function createExpelledList() {
     const currentStudentList = showExpelled(filterFunction(sortFunction(studentArray, sortBy), 'house', house));
-    console.log(currentStudentList);
 
     destStudentList.innerHTML = "";
     showStudentList(currentStudentList);
@@ -204,19 +202,15 @@ function showStudentList(list) {
 
         // If there is a - in the last name, the last part of the name will be used as lastName
         let nameArray = lastName.split("-");
-        lastName = nameArray[nameArray.length-1];
+        lastName = nameArray[nameArray.length - 1];
 
         // If-statements for the Patil twins, as the images fall out of the norm
         if (student.firstName === "Parvati") {
             studentPortrait = "patil_parvati";
-        }
-
-        else if (student.firstName === "Padma") {
+        } else if (student.firstName === "Padma") {
             studentPortrait = "patil_padme";
-        }
-
-        else {
-        studentPortrait = `${lastName}_${student.firstName.substring(0, 1)}`.toLowerCase();
+        } else {
+            studentPortrait = `${lastName}_${student.firstName.substring(0, 1)}`.toLowerCase();
         }
 
         let isShowingNotExpelledList = destStudentList.getAttribute("showingExpelled") !== "true";
@@ -240,7 +234,6 @@ ${student.house}
         destStudentList.lastElementChild.addEventListener("click", openPopup);
 
         function openPopup() {
-            console.log(student);
 
             popup.querySelector(".is_expelled").style.display = "none";
             popup.querySelector(".expel").setAttribute("data-student-name", student.firstName);
@@ -257,9 +250,7 @@ ${student.house}
                 popup.querySelector(".popup").style.backgroundColor = `grey`;
                 popup.querySelector(".is_expelled").style.display = "block";
                 popup.querySelector(".popup_option_buttons").style.display = "none";
-            }
-
-            else if (student.isExpelled === false) {
+            } else if (student.isExpelled === false) {
                 popup.querySelector(".popup_option_buttons").style.display = "flex";
             }
 
@@ -277,16 +268,32 @@ ${student.house}
             const prefectButton = popup.querySelector(".make_prefect");
             const expelButton = popup.querySelector(".expel");
 
-            inqSquadClickListener = function() {
+            inqSquadClickListener = function () {
                 student.isInqSquadMember = !student.isInqSquadMember;
-                inqSquadButton.textContent = student.isInqSquadMember ? "Remove inq. squad status" : "Make inq. squad member";
                 destStudentList.innerHTML = "";
                 createList();
                 closePopup();
                 openPopup();
+                clearInqTimer();
+
+                if (student.isInqSquadMember) {
+                    setInqTimer();
+                }
             };
 
-            prefectClickListener = function() {
+            let inqTimer;
+
+            function setInqTimer() {
+                console.log("Setting the timer");
+                inqTimer = setTimeout(inqSquadClickListener, 2000)
+            }
+
+            function clearInqTimer() {
+                console.log("Clearing timer");
+                clearTimeout(inqTimer);
+            }
+
+            prefectClickListener = function () {
                 student.isPrefect = !student.isPrefect;
                 destStudentList.innerHTML = "";
                 createList();
@@ -294,21 +301,18 @@ ${student.house}
                 openPopup();
             };
 
-            expelClickListener = function() {
+            expelClickListener = function () {
                 if (document.querySelector(".popup_first_name .popup_info_content").innerHTML.includes("Camilla")) {
                     console.log("NOPE");
                     document.querySelector("main").style.display = "none";
                     document.querySelector(".dontexpelme").style.display = "flex";
-                }
-
-                else {
+                } else {
                     student.isExpelled = true;
                     student.isInqSquadMember = false;
                     student.isPrefect = false;
                     closePopup();
                     openPopup();
 
-                    console.log(this.getAttribute("data-student-name"));
                     let thisStudent = this.getAttribute("data-student-name");
 
                     document.querySelectorAll(".list_student_container").forEach(student => {
@@ -332,7 +336,16 @@ ${student.house}
                 prefectButton.textContent = student.isPrefect ? "Remove prefect status" : "Make prefect";
                 prefectButton.addEventListener("click", prefectClickListener);
             }
-            inqSquadButton.addEventListener("click", inqSquadClickListener);
+
+            if (student.house === "Slytherin" || student.bloodStatus === "Pureblood") {
+                inqSquadButton.disabled = false;
+                inqSquadButton.textContent = student.isInqSquadMember ? "Remove inq. status" : "Make inq. member";
+                inqSquadButton.addEventListener("click", inqSquadClickListener);
+            } else {
+                inqSquadButton.disabled = true;
+                inqSquadButton.textContent = "Can't make inq. member";
+            }
+
             expelButton.addEventListener("click", expelClickListener);
         }
     });
