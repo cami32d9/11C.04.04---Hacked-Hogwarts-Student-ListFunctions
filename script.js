@@ -71,10 +71,13 @@ function addEventListeners() {
 
 // ----- CREATING THE LIST -----
 
+// This only runs once, and creates the student array as it is at the beginning.
 function createStudentArray(originalArray) {
     originalArray.forEach(student => {
         let thisStudent = createStudentObject(student);
         thisStudent = addBloodStatus(thisStudent);
+
+        // Hacking!
         thisStudent = randomizeBloodStatus(thisStudent);
         studentArray.push(thisStudent);
     });
@@ -161,13 +164,13 @@ function sortFunction(list, sortBy) {
 
 // Filter expelled
 
-function showNotExpelled(list) {
+function filterCurrentStudents(list) {
     return list.filter(function (student) {
         return student.isExpelled === false;
     });
 }
 
-function showExpelled(list) {
+function filterExpelledStudents(list) {
     return list.filter(function (student) {
         return student.isExpelled === true;
     });
@@ -180,19 +183,19 @@ function createList() {
     if (isShowingExpelled) {
         createExpelledList();
     } else {
-        createFinishedList();
+        createCurrentStudentsList();
     }
 }
 
-function createFinishedList() {
-    const currentStudentList = showNotExpelled(filterFunction(sortFunction(studentArray, sortBy), 'house', house));
+function createCurrentStudentsList() {
+    const currentStudentList = filterCurrentStudents(filterFunction(sortFunction(studentArray, sortBy), 'house', house));
 
     destStudentList.innerHTML = "";
     showStudentList(currentStudentList);
 }
 
 function createExpelledList() {
-    const currentStudentList = showExpelled(filterFunction(sortFunction(studentArray, sortBy), 'house', house));
+    const currentStudentList = filterExpelledStudents(filterFunction(sortFunction(studentArray, sortBy), 'house', house));
 
     destStudentList.innerHTML = "";
     showStudentList(currentStudentList);
@@ -201,7 +204,6 @@ function createExpelledList() {
 // ----- SHOW IN DOM -----
 
 function showStudentList(list) {
-
 
     document.querySelector(".student_count_number").textContent = list.length;
 
@@ -365,7 +367,7 @@ ${student.house}
             const prefectsFromSameHouse = list.filter(s => s.house === student.house && s.isPrefect);
             if (!student.isPrefect && prefectsFromSameHouse.length >= 2) {
                 prefectButton.disabled = true;
-                prefectButton.textContent = "No can do";
+                prefectButton.textContent = "Can't have more than two prefects from a house";
             }
 
             else {
@@ -382,7 +384,7 @@ ${student.house}
 
             else {
                 inqSquadButton.disabled = true;
-                inqSquadButton.textContent = "Can't make inq. member";
+                inqSquadButton.textContent = "Can't make mudblood, non-Slytherins inq. member!";
             }
 
             expelButton.addEventListener("click", expelClickListener);
@@ -414,10 +416,10 @@ function createObjectOfMe() {
         nickName: "",
         gender: "girl",
         house: "Hufflepuff",
-        bloodStatus: "Pureblood",
         isPrefect: false,
         isInqSquadMember: false,
         isExpelled: false,
+        bloodStatus: "Pureblood",
     };
 }
 

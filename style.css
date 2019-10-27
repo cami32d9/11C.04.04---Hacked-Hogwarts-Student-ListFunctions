@@ -15,6 +15,7 @@ html {
 body {
     margin: 0;
     overflow-y: scroll;
+    background-color: #fefff6;
 }
 
 main {
@@ -54,6 +55,12 @@ table {
 
 
 /* ----- STUDENT LIST ----- */
+
+h1 {
+    margin: 30px 0;
+    padding-bottom: 5px;
+    border-bottom: 1px solid darkgrey;
+}
 
 .student_list_container {
     width: 900px;
@@ -373,6 +380,10 @@ h2 {
 
 
 @media screen and (max-width: 600px) {
+
+    h1 {
+        text-align: center;
+    }
 
     .popup_info {
         grid-template-columns: 1fr;
